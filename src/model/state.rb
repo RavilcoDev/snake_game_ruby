@@ -1,5 +1,12 @@
 module Model
-  class Coord < Struct.new(:row, :col)
+  module Direction
+    UP = :up
+    RIGTH = :rigth
+    DOWN = :down
+    LEFT = :left
+  end
+
+  class Coord < Struct.new(:col, :row)
   end
 
   class Food < Coord
@@ -8,20 +15,22 @@ module Model
   class Snake < Struct.new(:positions)
   end
 
-  class Grid < Struct.new(:rows, :cols)
+  class Grid < Struct.new(:cols, :rows)
   end
 
-  class State < Struct.new(:snake, :food, :grid)
+  class State < Struct.new(:snake, :food, :grid, :next_direction, :game_finished)
   end
 
   def self.initial_state
     Model::State.new(
       Model::Snake.new([
         Model::Coord.new(1, 1),
-        Model::Coord.new(0, 1)
+        Model::Coord.new(1, 0)
       ]),
       Model::Food.new(4, 4),
-      Model::Grid.new(8, 12)
+      Model::Grid.new(12, 8),
+      Direction::DOWN,
+      false
     )
   end
 end

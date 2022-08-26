@@ -1,8 +1,26 @@
 require_relative "view/ruby2d"
 require_relative "model/state"
+require_relative "actions/actions"
 
-view = View::Ruby2dView.new
+class App
+  def initialize
+    @state = Model::initial_state
+  end
 
-initial_state = Model::initial_state
+  def start
+    view = View::Ruby2dView.new
+    Thread.new { init_timer(view) }
+    view.start(@state)
+  end
 
-view.render(initial_state)
+  def init_timer(view)
+    while !@state.game_finished do
+      view.renderGame(@state)
+      @state = Actions::move_snake(@state)
+      sleep 0.5
+    end
+  end
+end
+
+app = App.new
+app.start
