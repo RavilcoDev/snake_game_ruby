@@ -1,7 +1,7 @@
 module Model
   module Direction
     UP = :up
-    RIGTH = :rigth
+    RIGHT = :right
     DOWN = :down
     LEFT = :left
   end
@@ -28,7 +28,7 @@ module Model
         Model::Coord.new(1, 0)
       ]),
       Model::Food.new(4, 4),
-      Model::Grid.new(12, 8),
+      Model::Grid.new(30, 15),
       Direction::DOWN,
       false
     )
